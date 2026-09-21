@@ -12,6 +12,7 @@ import { MdContacts } from "react-icons/md";
 import axios from 'axios';
 import { shopDataContext } from '../context/ShopContext';
 import { authDataContext } from '../context/AuthContext';
+import { toast } from 'react-toastify';
 function Nav() {
     let { getCurrentUser , userData, setUserData } = useContext(userDataContext)
     let {serverUrl} = useContext(authDataContext)
@@ -87,3 +88,4 @@ const handleLogout = async () => {
 }
 
 export default Nav
+
