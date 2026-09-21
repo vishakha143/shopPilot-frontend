@@ -12,6 +12,7 @@ import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../utils/Firebase";
 import { userDataContext } from "../context/UserContext";
 import Loading from "../component/Loading";
+import { toast } from "react-toastify";
 
 function Login() {
   let [show, setShow] = useState(false);
@@ -50,12 +51,11 @@ function Login() {
     try {
       const response = await signInWithPopup(auth, provider);
       let user = response.user;
-      let name = user.displayName;
-      let email = user.email;
+      const idToken = await user.getIdToken();
 
       const result = await axios.post(
         serverUrl + "/api/auth/googlelogin",
-        { name, email },
+        { idToken },
         { withCredentials: true },
       );
       console.log(result.data);
@@ -148,3 +148,4 @@ function Login() {
 }
 
 export default Login;
+
